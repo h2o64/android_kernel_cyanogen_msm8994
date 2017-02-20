@@ -6387,7 +6387,9 @@ static int fb_notifier_callback(struct notifier_block *self,
 	if (evdata && evdata->data && event == FB_EVENT_BLANK &&
 				mxt && mxt->client) {
 			blank = evdata->data;
-			if (*blank == FB_BLANK_UNBLANK) {
+			if (*blank == FB_BLANK_UNBLANK
+                         || *blank == FB_BLANK_NORMAL
+                         || *blank == FB_BLANK_VSYNC_SUSPEND) {
 				if (mxt_resume(&mxt->client->dev) != 0)
 					TP_LOGE("failed\n");
 			}else if (*blank == FB_BLANK_POWERDOWN) {
